@@ -1,4 +1,5 @@
 # app.py
+import os
 import json
 import streamlit as st
 from flask import Flask, request, jsonify
@@ -8,11 +9,19 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
 # ===========================
+# Ambil token HF dari environment variable
+# ===========================
+hf_token = os.environ.get("HF_TOKEN")
+if not hf_token:
+    st.error("HF_TOKEN tidak ditemukan. Silakan set environment variable HF_TOKEN.")
+    st.stop()
+
+# ===========================
 # Load Qwen Model
 # ===========================
 model_name = "mistralai/qwen-7b"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto")
+tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=hf_token)
+model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", use_auth_token=hf_token)
 
 # ===========================
 # Load PDF Data
@@ -65,7 +74,7 @@ if st.button("Kirim"):
         st.text_area("Jawaban AI:", value=answer, height=200)
 
 # ===========================
-# Flask API
+# Flask API (opsional, bisa dihapus kalau nggak dipakai)
 # ===========================
 api_app = Flask(__name__)
 
