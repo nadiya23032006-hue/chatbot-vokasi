@@ -4,3 +4,5 @@ torch
 transformers
 sentencepiece
 accelerate
+PyPDF2
+pdfplumber
