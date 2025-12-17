@@ -1,11 +1,16 @@
 import PyPDF2
 
-file_path = "kampus.pdf"  # ganti sesuai nama file PDF-mu
+file_path = "kampus.pdf"
+output_file = "kampus.txt"
 
-text = ""
 with open(file_path, "rb") as f:
     reader = PyPDF2.PdfReader(f)
+    text = ""
     for page in reader.pages:
-        text += page.extract_text()
+        text += page.extract_text() + "\n"
 
-print(text)
+# Simpan ke file
+with open(output_file, "w", encoding="utf-8") as f:
+    f.write(text)
+
+print(f"Teks berhasil disimpan ke {output_file}")
