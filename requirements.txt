@@ -2,7 +2,6 @@ streamlit
 flask
 torch
 transformers
+PyPDF2
 sentencepiece
 accelerate
-PyPDF2
-pdfplumber
