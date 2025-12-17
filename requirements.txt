@@ -1,0 +1,6 @@
+streamlit
+flask
+torch
+transformers
+sentencepiece
+accelerate
